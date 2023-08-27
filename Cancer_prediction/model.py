@@ -48,7 +48,7 @@ x,y=test_generator.next()
 base_model=ResNet50(include_top=False,weights='imagenet')
 x=base_model.output
 x=GlobalAveragePooling2D()(x)
-x=Dense(1024,activation='sigmoid')(x)
+x=Dense(1024,activation='relu')(x)
 predictions=Dense(train_generator.num_classes,activation='softmax')(x)
 model=Model(inputs=base_model.input,outputs=predictions)#it becomes a transfer learn model
 
@@ -69,7 +69,7 @@ history_callback = LossAccHistory()
 model.fit(train_generator,epochs=15,callbacks=[history_callback])
 
 
-with open("Resnet-50.pkl", 'wb') as model_file:
+with open("dl.pkl", 'wb') as model_file:
     pickle.dump(model, model_file)
 # from tensorflow.keras.preprocessing import image
 # import numpy as np
